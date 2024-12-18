@@ -1,0 +1,70 @@
+* {
+    box-sizing: border-box;
+}
+
+#searchbarForm {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+#searchbar {
+    border: 1px, solid, grey;
+    border-radius: 10px;
+    width: 200px;
+    height: 50px;
+    text-align: center;
+}
+
+#searchbarBTN {
+    border: 1px, solid, grey;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#btnContainer {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 2rem;
+}
+
+#btnContainer button {
+    width: 8rem;
+    height: 50px;
+    border: 1px, solid, grey;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#popularMovieText {
+    font-weight: 200;
+    text-align: center;
+}
+
+#popularMovieDiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+#ratedMovieText {
+    font-weight: 200;
+    text-align: center;
+}
+
+#ratedMovieDiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 200px;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
