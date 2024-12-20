@@ -37,28 +37,21 @@
     cursor: pointer;
 }
 
-#popularMovieText {
-    font-weight: 200;
-    text-align: center;
-}
-
-#popularMovieDiv {
+#movieDiv {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 2rem;
 }
 
-#ratedMovieText {
+#popularMovieText {
     font-weight: 200;
     text-align: center;
 }
 
-#ratedMovieDiv {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 200px;
+#ratedMovieText {
+    font-weight: 200;
+    text-align: center;
 }
 
 .hidden {
