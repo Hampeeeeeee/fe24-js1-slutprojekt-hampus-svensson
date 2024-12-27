@@ -2,6 +2,26 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: lightblue;
+}
+
+h3 {
+    text-decoration: underline;
+}
+
+p {
+    font-style: italic;
+}
+
+img {
+    margin: 0; 
+    padding: 0;
+    border: 3px solid;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px navy;
+}
+
 #searchbarForm {
     display: flex;
     justify-content: center;
@@ -45,13 +65,21 @@
 }
 
 #popularMovieText {
-    font-weight: 200;
+    font-weight: 700;
     text-align: center;
 }
 
 #ratedMovieText {
-    font-weight: 200;
+    font-weight: 700;
     text-align: center;
+}
+
+#peopleDiv {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
 .hidden {
