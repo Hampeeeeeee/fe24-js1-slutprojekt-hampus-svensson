@@ -17,6 +17,8 @@ p {
 img {
     margin: 0; 
     padding: 0;
+    height: 300px;
+    width: 200px;
     border: 3px solid;
     border-radius: 10px;
     box-shadow: 0px 0px 10px navy;
@@ -26,10 +28,12 @@ img {
     display: flex;
     justify-content: center;
     gap: 0.5rem;
+    margin-bottom: 2rem;
 }
 
 #searchbar {
     border: 1px, solid, grey;
+    box-shadow: 0px 0px 10px navy;
     border-radius: 10px;
     width: 200px;
     height: 50px;
@@ -38,6 +42,7 @@ img {
 
 #searchbarBTN {
     border: 1px, solid, grey;
+    box-shadow: 0px 0px 10px navy;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -46,12 +51,13 @@ img {
     display: flex;
     justify-content: center;
     gap: 0.5rem;
-    margin: 2rem;
+    margin: 2rem 0 1rem 0;
 }
 
 #btnContainer button {
     width: 8rem;
     height: 50px;
+    box-shadow: 0px 0px 10px navy;
     border: 1px, solid, grey;
     border-radius: 5px;
     cursor: pointer;
@@ -78,8 +84,8 @@ img {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: space-around;
     gap: 2rem;
-    margin-top: 2rem;
 }
 
 .hidden {

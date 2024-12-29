@@ -10,7 +10,9 @@ const options = {
 const searchbarForm = document.querySelector('#searchbarForm');
 const topTenPopularBtn = document.querySelector('#popularBtn')
 const topTenRatedBtn = document.querySelector('#ratedBtn');
+const popularMovieList = document.querySelector('#movieDiv');
 const popularMovieText = document.querySelector('#popularMovieText');
+const ratedMovieList = document.querySelector('#movieDiv');
 const ratedMovieText = document.querySelector('#ratedMovieText');
 const personList = document.querySelector('#peopleDiv');
 
@@ -124,7 +126,8 @@ function handleSearchbarInput(event) {
     const userInput = searchbarForm.querySelector('input').value;
     console.log(userInput);
 
-    
+    popularMovieList.innerHTML = '';
+
     const personUrl = `https://api.themoviedb.org/3/search/person?query=${userInput}&include_adult=false&language=en-US&page=1`;
     const movieUrl = `https://api.themoviedb.org/3/search/movie?query=${userInput}&include_adult=false&language=en-US&page=1`;
 
@@ -142,6 +145,8 @@ function handleSearchbarInput(event) {
         const movieUrl = json.results;
     })
     .catch(error => console.error('error:' + error));
+
+    searchbarForm.reset();
 }
 
 function displayPeople(people) {
@@ -153,7 +158,7 @@ function displayPeople(people) {
     console.log("Person:", people);
 
     people.forEach(person => {
-        const profilePath = person.profile_path ? `https://image.tmdb.org/t/p/w200${person.profile_path}` : 'default-image-url.jpg';
+        const profilePath = person.profile_path ? `https://image.tmdb.org/t/p/w200${person.profile_path}` : './images/istockphoto-1409329028-612x612.jpg';
 
         const actorItem = document.createElement('div');
         const known_for = person.known_for.map(known_for => {
