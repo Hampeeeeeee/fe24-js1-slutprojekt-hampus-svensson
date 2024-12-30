@@ -17,8 +17,8 @@ p {
 img {
     margin: 0; 
     padding: 0;
-    height: 300px;
-    width: 200px;
+    height: 400px;
+    width: 300px;
     border: 3px solid;
     border-radius: 10px;
     box-shadow: 0px 0px 10px navy;
@@ -32,7 +32,7 @@ img {
 }
 
 #searchbar {
-    border: 1px, solid, grey;
+    border: 1px, solid, rgb(5, 5, 5);
     box-shadow: 0px 0px 10px navy;
     border-radius: 10px;
     width: 200px;
@@ -40,11 +40,19 @@ img {
     text-align: center;
 }
 
+#searchbar:hover {
+    background-color: rgb(185, 185, 185);
+}
+
 #searchbarBTN {
-    border: 1px, solid, grey;
+    border: 1px, solid, rgb(5, 5, 5);
     box-shadow: 0px 0px 10px navy;
     border-radius: 10px;
     cursor: pointer;
+}
+
+#searchbarBTN:hover {
+    background-color: rgb(185, 185, 185);
 }
 
 #btnContainer {
@@ -58,16 +66,39 @@ img {
     width: 8rem;
     height: 50px;
     box-shadow: 0px 0px 10px navy;
-    border: 1px, solid, grey;
+    border: 1px, solid, rgb(5, 5, 5);
     border-radius: 5px;
     cursor: pointer;
+}
+
+#btnContainer button:hover {
+    background-color: rgb(185, 185, 185);
+}
+
+.popularBtnActive {
+    background-color: rgb(185, 185, 185);
+}
+
+.ratedBtnActive {
+    background-color: rgb(185, 185, 185);
+}
+
+#top10MovieDiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
 }
 
 #movieDiv {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
     gap: 2rem;
+}
+
+#movieDiv h5 {
+    width: 20vw;
 }
 
 #popularMovieText {
