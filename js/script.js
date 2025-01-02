@@ -45,7 +45,7 @@ topTenPopularBtn.addEventListener('click', () => {
                 return response.json()
             }
             else if (response.status == 404) {
-                throw "That name does not exist."
+                throw 404;
             }
             else {
                 throw "Something whent wrong. Please try again later."
@@ -85,7 +85,7 @@ topTenRatedBtn.addEventListener('click', () => {
                 return response.json()
             }
             else if (response.status == 404) {
-                throw "That name does not exist."
+                throw 404;
             }
             else {
                 throw "Something whent wrong. Please try again later."
@@ -123,7 +123,9 @@ searchbarForm.addEventListener('submit', handleSearchbarInput)
 function handleSearchbarInput(event) {
     event.preventDefault();
 
-    const userInput = searchbarForm.querySelector('input').value;
+    const userInput = searchbarForm.querySelector('input').value.trim();
+
+    const errorP = document.getElementById('errorMessage');
 
     topTenPopularBtn.classList.remove('popularBtnActive');
     topTenRatedBtn.classList.remove('ratedBtnActive');
@@ -136,19 +138,46 @@ function handleSearchbarInput(event) {
     const personUrl = `https://api.themoviedb.org/3/search/person?query=${userInput}&include_adult=false&language=en-US&page=1`;
     const movieUrl = `https://api.themoviedb.org/3/search/movie?query=${userInput}&include_adult=false&language=en-US&page=1`;
 
+    let movieFound = false;
+    let personFound = false;
+
     fetch(movieUrl, options)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok){
+                throw new Error('An error occured');
+            }
+            return response.json();
+        })
         .then(json => {
             const movieResults = json.results;
-            displayMovie(movieResults);
+            if (movieResults.length === 0) {
+                console.log('No movies found.');
+                alert('No movies found, if you looked for a movie, try again!')
+            }
+            else {
+                movieFound = true;
+                displayMovie(movieResults);
+            }
         })
         .catch(error => console.error('error:' + error));
 
     fetch(personUrl, options)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok){
+                throw new Error('An error occured');
+            }
+            return response.json();
+        })
         .then(json => {
             const personResults = json.results;
-            displayPeople(personResults);
+            if (personResults.length === 0) {
+                console.log('No people found.');
+                alert('No people found, if you looked for a person, try again!')
+            }
+            else {
+                personFound = true;
+                displayPeople(personResults);
+            }
         })
         .catch(error => console.error('error:' + error));
 
@@ -175,7 +204,7 @@ function displayPeople(people) {
                 <h3>${person.name}</h3>
                 <img src="${profilePath}" alt="${person.name}"/>
                 <p>Profession: ${person.known_for_department}</p>
-                <h4>Known for:</h4> ${known_for.join('')}`;
+                <h2>Known for:</h2> ${known_for.join('')}`;
 
         personList.appendChild(actorItem);
     })
