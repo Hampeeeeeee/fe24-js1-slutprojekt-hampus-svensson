@@ -1,3 +1,4 @@
+// Bearer key för att hämta API
 const BEARER_KEY = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Mjc4NmNmOTdiODU0NmFhZWNkZDY2YjczZTc4ZGU1ZiIsIm5iZiI6MTczNDUyNDU1OC4wNjIsInN1YiI6IjY3NjJiZThlOGQxY2ZkYzUyMjRhMmU5YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.o06tGNhd-rYAscNUk_zYrtFkDdDKOhrFm9294UBlEj4';
 const options = {
     method: 'GET',
@@ -6,7 +7,22 @@ const options = {
         Authorization: `Bearer ${BEARER_KEY}`
     }
 };
+// Animation för knapparna
+const btnAnimation = {
+    targets: '#popularBtn, #ratedBtn',  
+    backgroundColor: 'rgb(116, 147, 170)', 
+    borderRadius: '50%', 
+    
+    duration: 2000, 
+    translateX: [0, 100, -100,],
+    direction: 'alternate', 
+    easing: 'easeInOutQuad',
+    loop: true,
+}
 
+anime(btnAnimation); //Sätter igång animationen
+
+// Alla variabler som behövde hämtas
 const searchbarForm = document.querySelector('#searchbarForm');
 const topTenPopularBtn = document.querySelector('#popularBtn')
 const topTenRatedBtn = document.querySelector('#ratedBtn');
@@ -15,13 +31,16 @@ const popularMovieText = document.querySelector('#popularMovieText');
 const ratedMovieList = document.querySelector('#movieDiv');
 const ratedMovieText = document.querySelector('#ratedMovieText');
 const personList = document.querySelector('#peopleDiv');
+const noPeopleMessage = document.querySelector('#noPeopleMessage')
+const noMovieMessage = document.querySelector('#noMovieMessage')
 
+// Alla URL:er som används
 const popularUrl = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`;
 const topRatedUrl = `https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1`;
 const personUrl = `https://api.themoviedb.org/3/search/person?include_adult=false&language=en-US&page=1`;
 const movieUrl = `https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1`;
 
-fetch(popularUrl, options)
+/*fetch(popularUrl, options)
     .then(response => response.json())
     .then(json => {
         const popularUrl = json.results.slice(0, 10);
@@ -35,10 +54,10 @@ fetch(topRatedUrl, options)
         const topRatedUrl = json.results.slice(0, 10);
         console.log("Högst betyg:", topRatedUrl);
     })
-    .catch(error => console.error('error:' + error));
-
+    .catch(error => console.error('error:' + error));*/
+// Event listener för click på knappen för popularBtn
 topTenPopularBtn.addEventListener('click', () => {
-
+    // Om allt fungerar som det ska körs funktionen displayPopular
     fetch(popularUrl, options)
         .then(response => {
             if (response.status >= 200 && response.status < 300) {
@@ -54,7 +73,7 @@ topTenPopularBtn.addEventListener('click', () => {
         .then(displayPopular)
         .catch(error => console.error('Error: ' + error));
 });
-
+// Funktion som visar de top 10 populära filmerna
 function displayPopular(popularMovies) {
     console.log(popularMovies);
     const popularMovieList = document.querySelector('#movieDiv');
@@ -77,8 +96,9 @@ function displayPopular(popularMovies) {
         popularMovieList.appendChild(popularMovieItem);
     });
 }
-
+// Event listener för click på knappen ratedBtn
 topTenRatedBtn.addEventListener('click', () => {
+    // Om allt fungerar körs funktionen displayRated
     fetch(topRatedUrl, options)
         .then(response => {
             if (response.status >= 200 && response.status < 300) {
@@ -94,7 +114,7 @@ topTenRatedBtn.addEventListener('click', () => {
         .then(displayRated)
         .catch(error => console.error('Error: ' + error));
 });
-
+// Funktion som visar de 10 filmer med högst betyg
 function displayRated(ratedMovies) {
     console.log(ratedMovies);
     const ratedMovieList = document.querySelector('#movieDiv');
@@ -117,15 +137,13 @@ function displayRated(ratedMovies) {
         ratedMovieList.appendChild(ratedMovieItem);
     })
 }
-
+// Event listener för submit på formet
 searchbarForm.addEventListener('submit', handleSearchbarInput)
-
+// Funktion som hanterar användarens input, och hämtar filmer/personer enligt användarens sökning.
 function handleSearchbarInput(event) {
     event.preventDefault();
 
     const userInput = searchbarForm.querySelector('input').value.trim();
-
-    const errorP = document.getElementById('errorMessage');
 
     topTenPopularBtn.classList.remove('popularBtnActive');
     topTenRatedBtn.classList.remove('ratedBtnActive');
@@ -138,13 +156,10 @@ function handleSearchbarInput(event) {
     const personUrl = `https://api.themoviedb.org/3/search/person?query=${userInput}&include_adult=false&language=en-US&page=1`;
     const movieUrl = `https://api.themoviedb.org/3/search/movie?query=${userInput}&include_adult=false&language=en-US&page=1`;
 
-    let movieFound = false;
-    let personFound = false;
-
     fetch(movieUrl, options)
         .then(response => {
             if (!response.ok){
-                throw new Error('An error occured');
+                throw new Error('An error occured!');
             }
             return response.json();
         })
@@ -152,10 +167,10 @@ function handleSearchbarInput(event) {
             const movieResults = json.results;
             if (movieResults.length === 0) {
                 console.log('No movies found.');
-                alert('No movies found, if you looked for a movie, try again!')
+                noMovieMessage.classList.remove('hidden');
             }
             else {
-                movieFound = true;
+                noMovieMessage.classList.add('hidden');
                 displayMovie(movieResults);
             }
         })
@@ -172,10 +187,10 @@ function handleSearchbarInput(event) {
             const personResults = json.results;
             if (personResults.length === 0) {
                 console.log('No people found.');
-                alert('No people found, if you looked for a person, try again!')
+                noPeopleMessage.classList.remove('hidden');
             }
             else {
-                personFound = true;
+                noPeopleMessage.classList.add('hidden');
                 displayPeople(personResults);
             }
         })
@@ -183,7 +198,7 @@ function handleSearchbarInput(event) {
 
     searchbarForm.reset();
 }
-
+// Funktion som visar personen/personerna som användaren sökt efter.
 function displayPeople(people) {
     const personList = document.querySelector('#peopleDiv');
 
@@ -209,7 +224,7 @@ function displayPeople(people) {
         personList.appendChild(actorItem);
     })
 }
-
+// Funktion som visar filmen/filmerna som användaren sökt efter.
 function displayMovie(movies) {
 
     const movieList = document.querySelector('#movieDiv');

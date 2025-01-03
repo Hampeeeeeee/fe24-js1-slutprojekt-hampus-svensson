@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/anime.min.js" defer></script>
     <script src="./js/script.js" defer></script>
 </head>
 <body>
@@ -26,6 +27,9 @@
     <div id="movieDiv">
         <div id="movieDivDescription" class="hidden">Title</div>
     </div>
-    <p id="feedbackText"></p>
+    <div id="errorMessage">
+        <h2 id="noPeopleMessage" class="hidden">No people found</h2>
+        <h2 id="noMovieMessage" class="hidden">No movies found</h2>
+    </div>
 </body>
 </html>

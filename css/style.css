@@ -119,6 +119,12 @@ img {
     margin-bottom: 4rem;
 }
 
+#errorMessage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .hidden {
     display: none;
 }
