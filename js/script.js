@@ -8,17 +8,25 @@ const options = {
     }
 };
 // Animation för knapparna
-const btnAnimation = {
+const btnAnimation = anime({
     targets: '#popularBtn, #ratedBtn',  
     backgroundColor: 'rgb(116, 147, 170)', 
     borderRadius: '50%', 
     
-    duration: 2000, 
-    translateX: [0, 100, -100,],
+    duration: 4000, 
+    translateX: [0, 250, -250, 0],
     direction: 'alternate', 
-    easing: 'easeInOutQuad',
-    loop: true,
-}
+    easing: 'cubicBezier(.5, .05, .1, .3)',
+    loop: false,
+    // Använde AI här för att hitta ett välfungerande sätt att återgå till originella stadiet
+    // på knapparna efter en loop
+    complete: () => {
+        const buttons = document.querySelectorAll('#popularBtn, #ratedBtn');
+        buttons.forEach((button) => {
+            button.style = '';
+        });
+    }
+})
 
 anime(btnAnimation); //Sätter igång animationen
 
@@ -40,21 +48,6 @@ const topRatedUrl = `https://api.themoviedb.org/3/movie/top_rated?language=en-US
 const personUrl = `https://api.themoviedb.org/3/search/person?include_adult=false&language=en-US&page=1`;
 const movieUrl = `https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1`;
 
-/*fetch(popularUrl, options)
-    .then(response => response.json())
-    .then(json => {
-        const popularUrl = json.results.slice(0, 10);
-        console.log("Populära:", popularUrl);
-    })
-    .catch(error => console.error('error:' + error));
-
-fetch(topRatedUrl, options)
-    .then(response => response.json())
-    .then(json => {
-        const topRatedUrl = json.results.slice(0, 10);
-        console.log("Högst betyg:", topRatedUrl);
-    })
-    .catch(error => console.error('error:' + error));*/
 // Event listener för click på knappen för popularBtn
 topTenPopularBtn.addEventListener('click', () => {
     // Om allt fungerar som det ska körs funktionen displayPopular
@@ -80,6 +73,8 @@ function displayPopular(popularMovies) {
 
     topTenPopularBtn.classList.add('popularBtnActive');
     topTenRatedBtn.classList.remove('ratedBtnActive');
+    noMovieMessage.classList.add('hidden');
+    noPeopleMessage.classList.add('hidden');
 
     popularMovieList.innerHTML = '';
     personList.innerHTML = '';
