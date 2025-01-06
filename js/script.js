@@ -48,7 +48,7 @@ const topRatedUrl = `https://api.themoviedb.org/3/movie/top_rated?language=en-US
 const personUrl = `https://api.themoviedb.org/3/search/person?include_adult=false&language=en-US&page=1`;
 const movieUrl = `https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1`;
 
-// Event listener för click på knappen för popularBtn
+// Event listener för click på knappen för #popularBtn
 topTenPopularBtn.addEventListener('click', () => {
     // Om allt fungerar som det ska körs funktionen displayPopular
     fetch(popularUrl, options)
@@ -91,7 +91,7 @@ function displayPopular(popularMovies) {
         popularMovieList.appendChild(popularMovieItem);
     });
 }
-// Event listener för click på knappen ratedBtn
+// Event listener för click på knappen #ratedBtn
 topTenRatedBtn.addEventListener('click', () => {
     // Om allt fungerar körs funktionen displayRated
     fetch(topRatedUrl, options)
@@ -116,6 +116,8 @@ function displayRated(ratedMovies) {
     
     topTenRatedBtn.classList.add('ratedBtnActive');
     topTenPopularBtn.classList.remove('popularBtnActive');
+    noMovieMessage.classList.add('hidden');
+    noPeopleMessage.classList.add('hidden');
 
     ratedMovieList.innerHTML = '';
     personList.innerHTML = '';
@@ -147,10 +149,12 @@ function handleSearchbarInput(event) {
     popularMovieText.innerHTML = '';
     ratedMovieList.innerHTML = '';
     ratedMovieText.innerHTML = '';
+    personList.innerHTML = '';
 
     const personUrl = `https://api.themoviedb.org/3/search/person?query=${userInput}&include_adult=false&language=en-US&page=1`;
     const movieUrl = `https://api.themoviedb.org/3/search/movie?query=${userInput}&include_adult=false&language=en-US&page=1`;
-
+    // Använde mig av AI här för att finna ett sätt att kombinera vad jag tidigare lärt mig och hur
+    // det skulle kunna användas i detta projekt.
     fetch(movieUrl, options)
         .then(response => {
             if (!response.ok){
@@ -195,11 +199,10 @@ function handleSearchbarInput(event) {
 }
 // Funktion som visar personen/personerna som användaren sökt efter.
 function displayPeople(people) {
-    const personList = document.querySelector('#peopleDiv');
 
     personList.innerHTML = '';
 
-    console.log("Person:", people);
+    console.log("People:", people);
 
     people.forEach(person => {
         const profilePath = person.profile_path ? `https://image.tmdb.org/t/p/w200${person.profile_path}` : './images/istockphoto-1409329028-612x612.jpg';
@@ -210,7 +213,7 @@ function displayPeople(people) {
         })
         console.log(known_for);
         actorItem.innerHTML = `
-                <h2>People:</h2>
+                <h2>Person:</h2>
                 <h3>${person.name}</h3>
                 <img src="${profilePath}" alt="${person.name}"/>
                 <p>Profession: ${person.known_for_department}</p>
